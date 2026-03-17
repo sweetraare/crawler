@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { CrawlerService } from 'src/crawler/crawler.service';
+import { Controller, Get, Query } from '@nestjs/common';
+import { FilterQueryDTO } from 'src/filter/dto/filter-query.dto';
+import { EntriesService } from './entries.service';
 
 @Controller('entries')
 export class EntriesController {
-  constructor(private readonly crawlerService: CrawlerService) { }
+  constructor(private readonly entries: EntriesService) { }
 
   @Get()
-  async getEntries() {
-    return this.crawlerService.fetchEntries();
+  async getFilteredEntry(@Query() query: FilterQueryDTO) {
+    return this.entries.getFilteredEntries(query);
+  }
+
+  @Get('/all')
+  async getAllEntries() {
+    return this.entries.getAllEntries();
   }
 }
