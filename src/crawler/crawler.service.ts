@@ -2,19 +2,21 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 
 import * as cheerio from 'cheerio';
-import { parseTextToNumber } from 'src/common/utils/parser.utils';
+import { New } from '../common/interfaces/new.interface';
+import { parseTextToNumber } from '../common/utils/parser.utils';
 
 const URL_TO_CRAWL = 'https://news.ycombinator.com/';
 
 @Injectable()
 export class CrawlerService {
-  async fetchEntries() {
+  async fetchEntries(): Promise<New[]> {
     const { data } = await axios.get(URL_TO_CRAWL);
-    // console.log('data', data);
-    this.parseHTML(data);
+    return this.parseHTML(data);
   }
 
-  private parseHTML(html: string) {
+  private parseHTML(html: string): New[] {
+    const newsList: New[] = [];
+
     const $ = cheerio.load(html);
 
     $('tr.athing').each((_, row) => {
@@ -29,7 +31,14 @@ export class CrawlerService {
       const points = parseTextToNumber(pointsText.split(' ')?.[0]);
       const comments = parseTextToNumber(commentsText.split(' ')?.[0]);
 
-      console.log(title, number, textNumber, points, comments);
+      newsList.push({
+        index: number,
+        title,
+        points,
+        comments,
+      });
     });
+
+    return newsList;
   }
 }
