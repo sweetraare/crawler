@@ -1,26 +1,16 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import * as Database from 'better-sqlite3';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { UserLog } from './user-logs.model';
+import { DATABASE_CONNECTION } from './database.provider';
+import * as Database from 'better-sqlite3';
 
 @Injectable()
-export class UserLogsService implements OnModuleInit {
-  private db: Database.Database;
+export class UserLogsService {
   private readonly logger = new Logger(UserLogsService.name);
 
-  onModuleInit() {
-    this.db = new Database('usageLogs.db');
-    this.db.pragma('journal_mode = WAL');
-    this.db.exec(`
-      CREATE TABLE IF NOT EXISTS user_logs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        timestamp TEXT NOT NULL,
-        filter TEXT NOT NULL,
-        numberOfNews INTEGER NOT NULL
-      )
-    `);
-
-    this.logger.log('DB ON boy!');
-  }
+  constructor(
+    @Inject(DATABASE_CONNECTION)
+    private readonly db: Database.Database,
+  ) { }
 
   createLog(log: UserLog) {
     const insert = this.db.prepare(
