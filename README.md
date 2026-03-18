@@ -13,6 +13,13 @@ Alex J. Ulloa A.
 - better-sqlite3 -> SQLite DB adapter
 - Jest -> Testing
 
+## Quickstart
+
+```bash
+yarn install
+yarn run start
+```
+
 ## Endpoints
 
 `GET /entries/all # All news`
@@ -22,3 +29,16 @@ Alex J. Ulloa A.
 `GET /entries?filter=short # News with -% words in title`
 
 `GET /user-logs # Logs`
+
+## Demo
+
+This project is Deployed to [Render](https://render.com/) you could review how it is working in the [following link](https://crawler-i2z1.onrender.com)
+
+### Demo Links
+
+- [Get All News](https://crawler-i2z1.onrender.com/entries/all)
+- [Get short News](https://crawler-i2z1.onrender.com/entries?filter=short)
+- [Get long News](https://crawler-i2z1.onrender.com/entries?filter=short)
+- [Get user logs](https://crawler-i2z1.onrender.com/user-logs)
+
+> User logs may be empty as File System is ephymeral in Render. It works well for a demo project, but it would be great to update to another DB such as PostgreSQL in the future
