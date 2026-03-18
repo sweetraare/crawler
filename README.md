@@ -16,6 +16,9 @@ Alex J. Ulloa A.
 ## Endpoints
 
 `GET /entries/all # All news`
+
 `GET /entries?filter=long # News with 5+ words in title`
+
 `GET /entries?filter=short # News with -% words in title`
+
 `GET /user-logs # Logs`
