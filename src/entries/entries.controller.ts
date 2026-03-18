@@ -1,10 +1,10 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { FilterQueryDTO } from 'src/filter/dto/filter-query.dto';
+import { FilterQueryDTO } from '../filter/dto/filter-query.dto';
 import { EntriesService } from './entries.service';
 
 @Controller('entries')
 export class EntriesController {
-  constructor(private readonly entries: EntriesService) { }
+  constructor(private readonly entries: EntriesService) {}
 
   @Get()
   async getFilteredEntry(@Query() query: FilterQueryDTO) {

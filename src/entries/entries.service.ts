@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CrawlerService } from '../crawler/crawler.service';
 import { FilterQueryDTO } from '../filter/dto/filter-query.dto';
 import { FilterService } from '../filter/filter.service';
-import { UserLogsService } from 'src/user-logs/user-logs.service';
-import { UserLog } from 'src/user-logs/user-logs.model';
+import { UserLogsService } from '../user-logs/user-logs.service';
+import { UserLog } from '../user-logs/user-logs.model';
 
 @Injectable()
 export class EntriesService {
@@ -11,7 +11,7 @@ export class EntriesService {
     private readonly crawler: CrawlerService,
     private readonly filter: FilterService,
     private readonly userLogs: UserLogsService,
-  ) { }
+  ) {}
 
   async getAllEntries() {
     const news = await this.crawler.fetchEntries();
